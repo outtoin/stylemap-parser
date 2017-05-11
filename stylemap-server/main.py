@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, send_from_directory
+from flask import Flask, render_template, request, url_for, send_from_directory, redirect
 from werkzeug import secure_filename
 import sys, os
 
@@ -16,6 +16,10 @@ def allowed_file(filename):
 @app.route('/return-files')
 def return_files():
  	return send_from_directory(directory='file', filename='Variable_Product.csv', as_attachment=True)
+
+@app.route('/')
+def main():
+	return redirect('/upload')
 
 @app.route('/upload')
 def upload_file():
@@ -37,4 +41,4 @@ def upload_files():
 	return render_template('upload_complete.html')
 		
 if __name__ == '__main__':
-   app.run(debug = True, port=5000)
+   app.run(debug = True, host='0.0.0.0', port=5000)
